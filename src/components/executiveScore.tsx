@@ -38,13 +38,37 @@ import {
 } from '../interfaces';
 import { faker } from '@faker-js/faker';
 
+faker.locale = 'pt_BR';
+
+function item(showSquadName: boolean, showScore: boolean) {
+  const [goalScore, setGoalScoreA] = React.useState<number>(
+    goalScoreGenerator()
+  );
+
+  const randomName = `${faker.name.firstName()} ${faker.name.lastName()}`;
+
+  const item: ExecutiveData = {
+    name: randomName,
+    role: 'Analista',
+    goalScore: goalScore,
+    children: [],
+  };
+
+  if (showScore) {
+    const [score, setScore] = React.useState<number>(scoreGenerator());
+    item.score = score;
+  }
+  if (showSquadName) {
+    const [score, setScore] = React.useState<number>(scoreGenerator());
+    item.squadName = 'Squad X';
+  }
+
+  return item;
+}
+
 function dataGenerator(): ExecutiveData[] {
   const [scoreA, setScoreA] = React.useState<number>(scoreGenerator());
   const [scoreB, setScoreB] = React.useState<number>(scoreGenerator());
-  const [scoreC, setScoreC] = React.useState<number>(scoreGenerator());
-  const [scoreD, setScoreD] = React.useState<number>(scoreGenerator());
-  const [scoreE, setScoreE] = React.useState<number>(scoreGenerator());
-  const [scoreF, setScoreF] = React.useState<number>(scoreGenerator());
 
   const [goalScoreA, setGoalScoreA] = React.useState<number>(
     goalScoreGenerator()
@@ -59,9 +83,6 @@ function dataGenerator(): ExecutiveData[] {
     goalScoreGenerator()
   );
   const [goalScoreE, setGoalScoreE] = React.useState<number>(
-    goalScoreGenerator()
-  );
-  const [goalScoreF, setGoalScoreF] = React.useState<number>(
     goalScoreGenerator()
   );
 
@@ -94,66 +115,19 @@ function dataGenerator(): ExecutiveData[] {
                         {
                           name: 'Luiz Martins',
                           role: 'Spec',
-                          goalScore: goalScoreF,
-                          children: [
-                            {
-                              name: 'Ana',
-                              role: 'Analista',
-                              squadName: 'Squad A',
-                              score: scoreA,
-                              goalScore: goalScoreA,
-                              children: [],
-                            },
-                            {
-                              name: 'Bruna',
-                              role: 'Analista',
-                              squadName: 'Squad B',
-                              score: scoreB,
-                              goalScore: goalScoreB,
-                              children: [],
-                            },
-                            // {
-                            //   id: 1111113,
-                            //   name: 'Analista C',
-                            //   squadName: 'Squad C',
-                            //   score: randomC,
-                            //   children: [],
-                            // },
-                          ],
+                          score: scoreA,
+                          goalScore: goalScoreA,
+                          squadName: 'Squad A',
+                          children: [],
                         },
-                        // {
-                        //   id: 111112,
-                        //   name: 'Spec B',
-                        //   children: [
-                        //     {
-                        //       id: 1111121,
-                        //       name: 'Analista D',
-                        //       squadName: 'Squad D',
-                        //       score: randomD,
-                        //       children: [],
-                        //     },
-                        //     {
-                        //       id: 1111122,
-                        //       name: 'Analista E',
-                        //       squadName: 'Squad E',
-                        //       score: randomE,
-                        //       children: [],
-                        //     },
-                        //   ],
-                        // },
-                        // {
-                        //   id: 111113,
-                        //   name: 'Spec C',
-                        //   children: [
-                        //     {
-                        //       id: 1111131,
-                        //       name: 'Analista F',
-                        //       squadName: 'Squad F',
-                        //       score: randomF,
-                        //       children: [],
-                        //     },
-                        //   ],
-                        // },
+                        {
+                          name: 'Luana Waitemam',
+                          role: 'Spec',
+                          score: scoreB,
+                          goalScore: goalScoreB,
+                          squadName: 'Squad A',
+                          children: [],
+                        },
                       ],
                     },
                   ],
@@ -304,14 +278,7 @@ function CustomTree(props: CustomTreeProps) {
 }
 
 export default function ExecutiveScore() {
-  const [expanded, setExpanded] = React.useState<string[]>([
-    'Felipe Ávila',
-    'Alex Scarelli',
-    'Lucia Shiraichi',
-    'Gerente TBD',
-    'Jean Meira',
-    'Luiz Martins',
-  ]);
+  const [expanded, setExpanded] = React.useState<string[]>([]);
   const handleChange = (id: string) => () => {
     if (expanded.includes(id)) {
       setExpanded((current) => current.filter((item) => item !== id));
@@ -321,16 +288,13 @@ export default function ExecutiveScore() {
   };
   const data = dataGenerator();
 
-  faker.locale = 'pt_BR';
-  const randomName = faker.name.fullName();
-
   return (
     <Box display="flex" justifyContent="center">
       <Tree
         lineWidth="4px"
         lineColor="#e50091"
         lineBorderRadius="10px"
-        label={<Typography variant="h4">{randomName}</Typography>}
+        label={<Typography variant="h4">Scores TI</Typography>}
         children={
           <CustomTree
             data={data}
