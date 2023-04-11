@@ -12,7 +12,7 @@ import ExecutiveScore from './components/executiveScore';
 import Home from './components/home';
 
 export default function App() {
-  const [content, setContent] = React.useState(<Home />);
+  const [content, setContent] = React.useState(<ExecutiveScore />);
 
   const showHome = () => {
     setContent(<Home />);
