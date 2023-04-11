@@ -321,6 +321,7 @@ export default function ExecutiveScore() {
   };
   const data = dataGenerator();
 
+  faker.locale = 'pt_BR';
   const randomName = faker.name.fullName();
 
   return (
