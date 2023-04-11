@@ -36,6 +36,7 @@ import {
   CustomTreeProps,
   Data,
 } from '../interfaces';
+import { faker } from '@faker-js/faker';
 
 function dataGenerator(): ExecutiveData[] {
   const [scoreA, setScoreA] = React.useState<number>(scoreGenerator());
@@ -320,13 +321,15 @@ export default function ExecutiveScore() {
   };
   const data = dataGenerator();
 
+  const randomName = faker.name.fullName();
+
   return (
     <Box display="flex" justifyContent="center">
       <Tree
         lineWidth="4px"
         lineColor="#e50091"
         lineBorderRadius="10px"
-        label={<Typography variant="h4">Scores de TI</Typography>}
+        label={<Typography variant="h4">{randomName}</Typography>}
         children={
           <CustomTree
             data={data}
