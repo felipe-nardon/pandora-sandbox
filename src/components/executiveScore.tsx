@@ -30,7 +30,12 @@ import {
   percentageToColor,
   scoreGenerator,
 } from '../utils';
-import { ExecutiveData, ScoreKPIProps, CustomTreeProps } from '../interfaces';
+import {
+  ExecutiveData,
+  ScoreKPIProps,
+  CustomTreeProps,
+  Data,
+} from '../interfaces';
 
 function dataGenerator(): ExecutiveData[] {
   const [scoreA, setScoreA] = React.useState<number>(scoreGenerator());
@@ -190,25 +195,30 @@ function ScoreKPI(props: ScoreKPIProps) {
   );
 }
 
-function chartDataGenerator(executiveData: ExecutiveData) {
+function chartDataGenerator(executiveData: ExecutiveData): Data[] {
   if (executiveData.children.length) {
-    const data = [];
+    const data: Data[] = [];
     let scoreSum = 0;
     executiveData.children.forEach((item) => {
       chartDataGenerator(item);
-      data.push({ name: item.name, value: item.score });
-      scoreSum += item.score;
+      data.push({ name: item.name, value: item.score || 0 });
+      scoreSum += item.score || 0;
     });
     executiveData.score = Math.floor(scoreSum / data.length);
     return data;
   } else {
-    return [{ name: executiveData.squadName, value: executiveData.score }];
+    return [
+      {
+        name: executiveData.squadName || 'Undefined',
+        value: executiveData.score || 0,
+      },
+    ];
   }
 }
 
 function CustomTree(props: CustomTreeProps) {
   const { data, expanded, handleChange } = props;
-  const content = [];
+  const content: any[] = [];
 
   data?.map((item: ExecutiveData) => {
     const chartData = chartDataGenerator(item);
@@ -277,7 +287,7 @@ function CustomTree(props: CustomTreeProps) {
               <Box display="flex" justifyContent="center">
                 <ScoreKPI
                   data={chartData}
-                  score={score}
+                  score={score || 0}
                   goalScore={goalScore}
                 />
               </Box>
