@@ -47,24 +47,24 @@ function walkTree(node) {
 
   const randomName = `${faker.name.firstName()} ${faker.name.lastName()}`;
 
-  const item: ExecutiveData = {
-    name: randomName,
-    role: node.role,
-    goalScore: goalScore,
-    children: [],
-  };
-
-  if (node.stop) {
-    const [score, setScore] = React.useState<number>(scoreGenerator());
-    item.score = score;
-    item.squadName = 'Squad X';
-  }
-
-  if (node.childrenCount) {
+  const data = [];
+  for (let i = 0; i <= node.childreCount; i++) {
+    const item: ExecutiveData = {
+      name: randomName,
+      role: node.role,
+      goalScore: goalScore,
+      children: [],
+    };
+    if (node.stop) {
+      const [score, setScore] = React.useState<number>(scoreGenerator());
+      item.score = score;
+      item.squadName = 'Squad X';
+    }
     item.children = walkTree(node.childrenProps);
+    data.push(item);
   }
 
-  return [item];
+  return data;
 }
 
 function dataGenerator(): ExecutiveData[] {
