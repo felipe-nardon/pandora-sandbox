@@ -99,7 +99,7 @@ function Area(props: AreaProps) {
       </Grid>
     );
   }
-  return;
+  return <Box />;
 }
 
 function Category(props: CategoryProps) {

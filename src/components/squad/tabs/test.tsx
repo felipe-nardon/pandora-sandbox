@@ -12,5 +12,5 @@ export default function Test(props: TestProps) {
       </Box>
     );
   }
-  return;
+  return <Box />;
 }

@@ -12,7 +12,7 @@ export function goalScoreGenerator() {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-export function scoreVariation(score) {
+export function scoreVariation(score: number) {
   const min = score * 0.7;
   let max = score * 1.3;
   if (max > 100.0) max = 100;
@@ -22,7 +22,7 @@ export function scoreVariation(score) {
   return variation;
 }
 
-export function dataGenerator(score) {
+export function dataGenerator(score: number) {
   const [max, setMax] = React.useState(Math.floor(Math.random() * (4 - 1)) + 1);
   const data = [];
   for (let i = 0; i < max; i++) {
@@ -31,7 +31,7 @@ export function dataGenerator(score) {
   return data;
 }
 
-export function percentageToColor(percentage) {
+export function percentageToColor(percentage: number) {
   let s = 1;
   let l = 0.5;
 

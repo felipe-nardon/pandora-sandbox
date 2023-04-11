@@ -28,7 +28,12 @@ export default function App() {
 
   return (
     <Box>
-      <AppBar sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+      <AppBar
+        sx={{
+          zIndex: (theme: { zIndex: { drawer: number } }) =>
+            theme.zIndex.drawer + 1,
+        }}
+      >
         <Toolbar>
           <Typography variant="h5">Pandora</Typography>
         </Toolbar>

@@ -12,5 +12,5 @@ export default function Docs(props: DocsProps) {
       </Box>
     );
   }
-  return;
+  return <Box />;
 }

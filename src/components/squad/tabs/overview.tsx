@@ -12,5 +12,5 @@ export default function Overview(props: OverviewProps) {
       </Box>
     );
   }
-  return;
+  return <Box />;
 }

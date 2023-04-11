@@ -40,127 +40,59 @@ import { faker } from '@faker-js/faker';
 
 faker.locale = 'pt_BR';
 
-function walkTree(node) {
-  const [goalScore, setGoalScoreA] = React.useState<number>(
-    goalScoreGenerator()
-  );
-
-  const randomName = `${faker.name.firstName()} ${faker.name.lastName()}`;
-
-  const data = [];
-  for (let i = 0; i <= node.childreCount; i++) {
-    const item: ExecutiveData = {
-      name: randomName,
-      role: node.role,
-      goalScore: goalScore,
-      children: [],
-    };
-    if (node.stop) {
-      const [score, setScore] = React.useState<number>(scoreGenerator());
-      item.score = score;
-      item.squadName = 'Squad X';
-    }
-    item.children = walkTree(node.childrenProps);
-    data.push(item);
+function walkTree(node: {
+  role: string;
+  childrenCount: number;
+  childrenProps: any;
+  stop?: boolean;
+}) {
+  const item: ExecutiveData = {
+    name: `${faker.name.firstName()} ${faker.name.lastName()}`,
+    role: node.role,
+    goalScore: goalScoreGenerator(),
+    children: [],
+  };
+  if (node.stop) {
+    item.score = scoreGenerator();
+    item.squadName = `Squad ${faker.music.genre()}`;
   }
 
-  return data;
+  for (let i = 0; i < node.childrenCount; i++) {
+    item.children.push(walkTree(node.childrenProps));
+  }
+
+  return item;
 }
 
 function dataGenerator(): ExecutiveData[] {
   const tree = {
     role: 'Diretor',
-    childrenCount: 2,
-    childrenProps: [
-      {
-        role: 'Superintendente',
+    childrenCount: 1,
+    childrenProps: {
+      role: 'Superintendente',
+      childrenCount: 1,
+      childrenProps: {
+        role: 'Gerente Executivo',
         childrenCount: 1,
-        childrenProps: [
-          {
-            role: 'Gerente Executivo',
-            childrenCount: 0,
-            childrenProps: [],
-            stop: true,
+        childrenProps: {
+          role: 'Gerente',
+          childrenCount: 1,
+          childrenProps: {
+            role: 'Coordenador',
+            childrenCount: 5,
+            childrenProps: {
+              role: 'Spec',
+              childrenCount: 0,
+              stop: true,
+            },
           },
-        ],
+        },
       },
-    ],
+    },
   };
 
-  return walkTree(tree);
-
-  // const [scoreA, setScoreA] = React.useState<number>(scoreGenerator());
-  // const [scoreB, setScoreB] = React.useState<number>(scoreGenerator());
-
-  // const [goalScoreA, setGoalScoreA] = React.useState<number>(
-  //   goalScoreGenerator()
-  // );
-  // const [goalScoreB, setGoalScoreB] = React.useState<number>(
-  //   goalScoreGenerator()
-  // );
-  // const [goalScoreC, setGoalScoreC] = React.useState<number>(
-  //   goalScoreGenerator()
-  // );
-  // const [goalScoreD, setGoalScoreD] = React.useState<number>(
-  //   goalScoreGenerator()
-  // );
-  // const [goalScoreE, setGoalScoreE] = React.useState<number>(
-  //   goalScoreGenerator()
-  // );
-
-  // return [
-  //   {
-  //     name: 'Felipe Ávila',
-  //     role: 'Diretor',
-  //     goalScore: goalScoreA,
-  //     children: [
-  //       {
-  //         name: 'Alex Scarelli',
-  //         role: 'Superintendente',
-  //         goalScore: goalScoreB,
-  //         children: [
-  //           {
-  //             name: 'Lucia Shiraichi',
-  //             role: 'Gerente Executivo',
-  //             goalScore: goalScoreC,
-  //             children: [
-  //               {
-  //                 name: 'Gerente TBD',
-  //                 role: 'Gerente',
-  //                 goalScore: goalScoreD,
-  //                 children: [
-  //                   {
-  //                     name: 'Jean Meira',
-  //                     role: 'Spec II',
-  //                     goalScore: goalScoreE,
-  //                     children: [
-  //                       {
-  //                         name: 'Luiz Martins',
-  //                         role: 'Spec',
-  //                         score: scoreA,
-  //                         goalScore: goalScoreA,
-  //                         squadName: 'Squad A',
-  //                         children: [],
-  //                       },
-  //                       {
-  //                         name: 'Luana Waitemam',
-  //                         role: 'Spec',
-  //                         score: scoreB,
-  //                         goalScore: goalScoreB,
-  //                         squadName: 'Squad A',
-  //                         children: [],
-  //                       },
-  //                     ],
-  //                   },
-  //                 ],
-  //               },
-  //             ],
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //   },
-  // ];
+  const [data] = React.useState<ExecutiveData[]>([walkTree(tree)]);
+  return data;
 }
 
 function ScoreKPI(props: ScoreKPIProps) {
@@ -241,17 +173,17 @@ function CustomTree(props: CustomTreeProps) {
         </CardActions>
       );
     }
-    // if (expanded.includes(name)) {
-    nextChildren = (
-      <Collapse in={true} unmountOnExit>
-        <CustomTree
-          data={children}
-          expanded={expanded}
-          handleChange={handleChange}
-        />
-      </Collapse>
-    );
-    // }
+    if (expanded.includes(name)) {
+      nextChildren = (
+        <Collapse in={expanded.includes(name)} unmountOnExit>
+          <CustomTree
+            data={children}
+            expanded={expanded}
+            handleChange={handleChange}
+          />
+        </Collapse>
+      );
+    }
 
     content.push(
       <TreeNode
