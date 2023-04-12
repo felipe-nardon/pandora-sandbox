@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Box, Typography } from '@mui/material';
-import { TestProps } from '../../../interfaces';
+import { TestProps } from '../../interfaces';
 
 export default function Test(props: TestProps) {
   const { value, index } = props;

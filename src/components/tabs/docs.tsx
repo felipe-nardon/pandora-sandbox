@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Box, Typography } from '@mui/material';
-import { DocsProps } from '../../../interfaces';
+import { DocsProps } from '../../interfaces';
 
 export default function Docs(props: DocsProps) {
   const { value, index } = props;

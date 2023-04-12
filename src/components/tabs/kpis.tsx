@@ -27,7 +27,7 @@ import {
   percentageToColor,
   scoreGenerator,
   scoreVariation,
-} from '../../../utils';
+} from '../../utils';
 import {
   Data,
   KPIProps,
@@ -35,7 +35,7 @@ import {
   CategoryProps,
   SquadAccordionProps,
   KPIsProps,
-} from '../../../interfaces';
+} from '../../interfaces';
 
 function KPI(props: KPIProps) {
   const { title, score, goalScore } = props;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Box, Typography } from '@mui/material';
-import { OverviewProps } from '../../../interfaces';
+import { OverviewProps } from '../../interfaces';
 
 export default function Overview(props: OverviewProps) {
   const { value, index } = props;

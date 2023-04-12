@@ -1,5 +1,4 @@
-import { createTheme, ThemeProvider } from '@mui/material';
-import { red } from '@mui/material/colors';
+import { StyledEngineProvider } from '@mui/material/styles';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import App from './src/App';
@@ -7,22 +6,10 @@ import App from './src/App';
 const rootElement = document.getElementById('root');
 const root = ReactDOM.createRoot(rootElement!);
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#556cd6',
-    },
-    secondary: {
-      main: '#19857b',
-    },
-    error: {
-      main: red.A400,
-    },
-  },
-});
-
 root.render(
-  <ThemeProvider theme={theme}>
-    <App />
-  </ThemeProvider>
+  <React.StrictMode>
+    <StyledEngineProvider injectFirst>
+      <App />
+    </StyledEngineProvider>
+  </React.StrictMode>
 );

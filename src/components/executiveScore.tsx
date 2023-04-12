@@ -205,7 +205,7 @@ function CustomTree(props: CustomTreeProps) {
                 >
                   <Chip
                     label={`Score ${score}`}
-                    sx={{ backgroundColor: percentageToColor(score) }}
+                    sx={{ backgroundColor: percentageToColor(score || 0) }}
                   />
                   <Chip
                     label={`Goal ${goalScore}`}
