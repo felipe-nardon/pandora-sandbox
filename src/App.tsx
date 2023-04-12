@@ -7,7 +7,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import Squad from './components/squad/squad';
+import Squad from './components/squad';
 import ExecutiveScore from './components/executiveScore';
 import Home from './components/home';
 
