@@ -36,9 +36,9 @@ import {
   CustomTreeProps,
   Data,
 } from '../interfaces';
-import { faker } from '@faker-js/faker/locale/pt_BR';
+import { faker } from '@faker-js/faker';
 
-// faker.locale = 'pt_BR';
+faker.locale = 'pt_BR';
 
 function walkTree(node: {
   role: string;

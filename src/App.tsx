@@ -44,7 +44,9 @@ export default function App() {
         <MenuItem onClick={showSquad}>Squad</MenuItem>
         <MenuItem onClick={showScores}>Scores</MenuItem>
       </Drawer>
-      <Box sx={{ paddingTop: 8, paddingLeft: 11 }}>{content}</Box>
+      <Box paddingTop={8} paddingLeft={11}>
+        {content}
+      </Box>
     </Box>
   );
 }
