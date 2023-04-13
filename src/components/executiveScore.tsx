@@ -230,7 +230,11 @@ function CustomTree(props: CustomTreeProps) {
       />
     );
   });
-  return <Box sx={{ display: 'flex' }}>{content}</Box>;
+  return (
+    <Box display="flex" justifyContent="center">
+      {content}
+    </Box>
+  );
 }
 
 export default function ExecutiveScore() {
@@ -245,20 +249,24 @@ export default function ExecutiveScore() {
   const data = dataGenerator();
 
   return (
-    <Box display="flex" justifyContent="center">
+    <Box>
+      <Typography variant="h4" display="flex" justifyContent="center">
+        Scores TI
+      </Typography>
       <Tree
         lineWidth="4px"
         lineColor="#e50091"
         lineBorderRadius="10px"
-        label={<Typography variant="h4">Scores TI</Typography>}
-        children={
+        label={
           <CustomTree
             data={data}
             expanded={expanded}
             handleChange={handleChange}
           />
         }
-      />
+      >
+        {}
+      </Tree>
     </Box>
   );
 }
