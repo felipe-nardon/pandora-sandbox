@@ -3,6 +3,7 @@ import {
   AppBar,
   Box,
   Drawer,
+  IconButton,
   MenuItem,
   Toolbar,
   Typography,
@@ -10,41 +11,43 @@ import {
 import Squad from './components/squad';
 import ExecutiveScore from './components/executiveScore';
 import Home from './components/home';
+import MenuIcon from '@mui/icons-material/Menu';
 
 export default function App() {
   const [content, setContent] = React.useState(<ExecutiveScore />);
+  const [menu, setMenu] = React.useState(false);
 
-  const showHome = () => {
-    setContent(<Home />);
+  const showContent = (content: JSX.Element) => () => {
+    setContent(content);
+    setMenu(false);
   };
 
-  const showScores = () => {
-    setContent(<ExecutiveScore />);
-  };
-
-  const showSquad = () => {
-    setContent(<Squad />);
+  const showMenu = (open: boolean) => () => {
+    setMenu(open);
   };
 
   return (
-    <Box>
-      <AppBar
-        sx={{
-          zIndex: (theme: { zIndex: { drawer: number } }) =>
-            theme.zIndex.drawer + 1,
-        }}
-      >
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
         <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            sx={{ mr: 2 }}
+            onClick={showMenu(true)}
+          >
+            <MenuIcon />
+          </IconButton>
           <Typography variant="h5">Pandora</Typography>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" anchor="left">
+      <Drawer anchor="left" open={menu} onClose={showMenu(false)}>
         <Toolbar />
-        <MenuItem onClick={showHome}>Home</MenuItem>
-        <MenuItem onClick={showSquad}>Squad</MenuItem>
-        <MenuItem onClick={showScores}>Scores</MenuItem>
+        <MenuItem onClick={showContent(<Home />)}>Home</MenuItem>
+        <MenuItem onClick={showContent(<Squad />)}>Squad</MenuItem>
+        <MenuItem onClick={showContent(<ExecutiveScore />)}>Scores</MenuItem>
       </Drawer>
-      <Box paddingTop={8} paddingLeft={11}>
+      <Box paddingTop={8} paddingLeft={20}>
         {content}
       </Box>
     </Box>

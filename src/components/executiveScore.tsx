@@ -67,7 +67,7 @@ function walkTree(node: {
 function dataGenerator(): ExecutiveData[] {
   const tree = {
     role: 'Diretor',
-    childrenCount: 1,
+    childrenCount: 3,
     childrenProps: {
       role: 'Superintendente',
       childrenCount: 1,
@@ -79,7 +79,7 @@ function dataGenerator(): ExecutiveData[] {
           childrenCount: 1,
           childrenProps: {
             role: 'Coordenador',
-            childrenCount: 5,
+            childrenCount: 1,
             childrenProps: {
               role: 'Spec',
               childrenCount: 0,
@@ -243,7 +243,7 @@ export default function ExecutiveScore() {
   const data = dataGenerator();
 
   return (
-    <Box display="flex" justifyContent="center">
+    <Box display="flex" justifyContent="center" paddingLeft={12}>
       <Tree
         lineWidth="4px"
         lineColor="#e50091"
