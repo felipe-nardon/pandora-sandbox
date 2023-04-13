@@ -27,8 +27,8 @@ export default function App() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box marginTop={10}>
+      <AppBar>
         <Toolbar>
           <IconButton
             edge="start"
@@ -47,9 +47,7 @@ export default function App() {
         <MenuItem onClick={showContent(<Squad />)}>Squad</MenuItem>
         <MenuItem onClick={showContent(<ExecutiveScore />)}>Scores</MenuItem>
       </Drawer>
-      <Box paddingTop={8} paddingLeft={20}>
-        {content}
-      </Box>
+      {content}
     </Box>
   );
 }

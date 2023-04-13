@@ -67,7 +67,7 @@ function walkTree(node: {
 function dataGenerator(): ExecutiveData[] {
   const tree = {
     role: 'Diretor',
-    childrenCount: 3,
+    childrenCount: 5,
     childrenProps: {
       role: 'Superintendente',
       childrenCount: 1,
@@ -192,27 +192,29 @@ function CustomTree(props: CustomTreeProps) {
           <Card sx={{ minWidth: 400 }}>
             <CardHeader title={name} subheader={role} />
             <CardContent sx={{ p: 0 }}>
-              <Paper
-                elevation={1}
-                sx={{ p: 1, m: 1, backgroundColor: '#f9f9f9' }}
-              >
-                <Stack
-                  display="flex"
-                  justifyContent="space-evenly"
-                  direction="row"
-                  divider={<Divider orientation="vertical" flexItem />}
-                  spacing={2}
+              <Box display="flex" justifyContent="center">
+                <Paper
+                  elevation={1}
+                  sx={{ width: 350, padding: 1, backgroundColor: '#f9f9f9' }}
                 >
-                  <Chip
-                    label={`Score ${score}`}
-                    sx={{ backgroundColor: percentageToColor(score || 0) }}
-                  />
-                  <Chip
-                    label={`Goal ${goalScore}`}
-                    sx={{ backgroundColor: '#e50091', color: 'white' }}
-                  />
-                </Stack>
-              </Paper>
+                  <Stack
+                    display="flex"
+                    justifyContent="space-evenly"
+                    direction="row"
+                    divider={<Divider orientation="vertical" flexItem />}
+                    spacing={2}
+                  >
+                    <Chip
+                      label={`Score ${score}`}
+                      sx={{ backgroundColor: percentageToColor(score || 0) }}
+                    />
+                    <Chip
+                      label={`Goal ${goalScore}`}
+                      sx={{ backgroundColor: '#e50091', color: 'white' }}
+                    />
+                  </Stack>
+                </Paper>
+              </Box>
               <Box display="flex" justifyContent="center">
                 <ScoreKPI
                   data={chartData}
@@ -243,7 +245,7 @@ export default function ExecutiveScore() {
   const data = dataGenerator();
 
   return (
-    <Box display="flex" justifyContent="center" paddingLeft={12}>
+    <Box display="flex" justifyContent="center">
       <Tree
         lineWidth="4px"
         lineColor="#e50091"
