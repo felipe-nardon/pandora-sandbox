@@ -70,3 +70,7 @@ export function percentageToColor(percentage: number) {
 
   return `#${red}${green}${blue}${alpha}`;
 }
+
+export function getSample(arr: string[]) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}

@@ -13,6 +13,7 @@ import {
   Stack,
   Divider,
   Paper,
+  Grid,
 } from '@mui/material';
 import {
   Bar,
@@ -26,6 +27,7 @@ import {
 } from 'recharts';
 import { Tree, TreeNode } from 'react-organizational-chart';
 import {
+  getSample,
   goalScoreGenerator,
   percentageToColor,
   scoreGenerator,
@@ -40,15 +42,43 @@ import { faker } from '@faker-js/faker';
 
 faker.locale = 'pt_BR';
 
+function dataGenerator(): ExecutiveData[] {
+  const tree = {
+    role: 'Diretor',
+    childrenCount: 2,
+    childrenProps: {
+      role: 'Superintendente / Gerente Executivo / Gererente',
+      childrenCount: 2,
+      childrenProps: {
+        role: 'Coordenador / Spec II',
+        childrenCount: 2,
+        childrenProps: {
+          role: 'Spec',
+          childrenCount: 0,
+          stop: true,
+        },
+      },
+    },
+  };
+
+  const [data] = React.useState<ExecutiveData[]>([walkTree(tree)]);
+  return data;
+}
+
 function walkTree(node: {
   role: string;
   childrenCount: number;
   childrenProps: any;
   stop?: boolean;
 }) {
+  let role: string = node.role;
+
+  if (role.includes(' / ')) {
+    role = getSample(role.split(' / '));
+  }
   const item: ExecutiveData = {
     name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-    role: node.role,
+    role: role,
     goalScore: goalScoreGenerator(),
     children: [],
   };
@@ -62,37 +92,6 @@ function walkTree(node: {
   }
 
   return item;
-}
-
-function dataGenerator(): ExecutiveData[] {
-  const tree = {
-    role: 'Diretor',
-    childrenCount: 5,
-    childrenProps: {
-      role: 'Superintendente',
-      childrenCount: 1,
-      childrenProps: {
-        role: 'Gerente Executivo',
-        childrenCount: 1,
-        childrenProps: {
-          role: 'Gerente',
-          childrenCount: 1,
-          childrenProps: {
-            role: 'Coordenador',
-            childrenCount: 1,
-            childrenProps: {
-              role: 'Spec',
-              childrenCount: 0,
-              stop: true,
-            },
-          },
-        },
-      },
-    },
-  };
-
-  const [data] = React.useState<ExecutiveData[]>([walkTree(tree)]);
-  return data;
 }
 
 function MaturityScore(props: MaturityScoreProps) {
@@ -194,7 +193,7 @@ function CustomTree(props: CustomTreeProps) {
             <CardContent sx={{ p: 0 }}>
               <Box display="flex" justifyContent="center">
                 <Paper
-                  elevation={1}
+                  elevation={0}
                   sx={{ width: 350, padding: 1, backgroundColor: '#f9f9f9' }}
                 >
                   <Stack
@@ -253,25 +252,33 @@ export default function ExecutiveScore() {
   const data = dataGenerator();
 
   return (
-    <Box>
-      <Typography variant="h4" display="flex" justifyContent="center">
-        Scores TI
-      </Typography>
-      <Tree
-        lineWidth="4px"
-        lineColor="#e50091"
-        lineBorderRadius="10px"
-        label={
-          <CustomTree
-            data={data}
-            expanded={expanded}
-            handleChange={handleChange}
-          />
-        }
-      >
-        {}
-      </Tree>
-    </Box>
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      justifyContent="space-around"
+      alignItems="center"
+    >
+      <Grid item>
+        <Typography variant="h4">Scores TI</Typography>
+      </Grid>
+      <Grid item>
+        <Tree
+          lineWidth="4px"
+          lineColor="#e50091"
+          lineBorderRadius="10px"
+          label={
+            <CustomTree
+              data={data}
+              expanded={expanded}
+              handleChange={handleChange}
+            />
+          }
+        >
+          {}
+        </Tree>
+      </Grid>
+    </Grid>
   );
 }
 
