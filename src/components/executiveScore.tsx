@@ -107,7 +107,7 @@ function MaturityScore(props: MaturityScoreProps) {
           <YAxis type="number" domain={[0, 100]} />
           <Bar
             dataKey="value"
-            fill={percentageToColor(score)}
+            fill={percentageToColor((score / goalScore) * 100)}
             label={{ fill: 'black', fontSize: 16 }}
           />
           <ReferenceLine
@@ -206,7 +206,11 @@ function CustomTree(props: CustomTreeProps) {
                   >
                     <Chip
                       label={`Score ${score}`}
-                      sx={{ backgroundColor: percentageToColor(score || 0) }}
+                      sx={{
+                        backgroundColor: percentageToColor(
+                          ((score || 0) / goalScore) * 100
+                        ),
+                      }}
                     />
                     <Chip
                       label={`Goal ${goalScore}`}

@@ -55,7 +55,7 @@ function KPI(props: KPIProps) {
           <YAxis type="number" domain={[0, 100]} />
           <Bar
             dataKey="value"
-            fill={percentageToColor(score)}
+            fill={percentageToColor((score / goalScore) * 100)}
             label={{ fill: 'black', fontSize: 16 }}
           />
           <ReferenceLine
@@ -155,12 +155,15 @@ function Category(props: CategoryProps) {
 }
 
 function SquadAccordion(props: SquadAccordionProps) {
+  const { name, expanded, handleChange } = props;
   const [score] = React.useState<number>(scoreGenerator());
   const [goalScore] = React.useState<number>(
-    goalScoreGenerator({ min: score })
+    goalScoreGenerator(
+      name === 'Silver'
+        ? { min: score + 1, max: score + 10 }
+        : { min: score - 10, max: score }
+    )
   );
-
-  const { name, expanded, handleChange } = props;
 
   const disable = ['Pink', 'Gold'].includes(name);
   return (
@@ -185,7 +188,9 @@ function SquadAccordion(props: SquadAccordionProps) {
           >
             <Chip
               label={`Score ${score}`}
-              sx={{ backgroundColor: percentageToColor(score) }}
+              sx={{
+                backgroundColor: percentageToColor((score / goalScore) * 100),
+              }}
             />
             <Chip
               label={`Goal ${goalScore}`}
@@ -228,7 +233,9 @@ export default function Maturity(props: MaturityProps) {
             >
               <Chip
                 label={`Score ${score}`}
-                sx={{ backgroundColor: percentageToColor(score) }}
+                sx={{
+                  backgroundColor: percentageToColor((score / goalScore) * 100),
+                }}
               />
               <Chip
                 label={`Goal ${goalScore}`}

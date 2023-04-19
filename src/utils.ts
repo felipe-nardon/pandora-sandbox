@@ -11,7 +11,10 @@ export interface goalScoreGeneratorProps {
   max: number;
 }
 
-export function goalScoreGenerator({ min = 50, max = 95 }) {
+export function goalScoreGenerator({
+  min = 50,
+  max = 95,
+}: { min?: number; max?: number } = {}) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
