@@ -52,7 +52,7 @@ function KPI(props: KPIProps) {
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3" />
           <XAxis dataKey="name" />
-          <YAxis type="number" domain={[0, 100]} />
+          <YAxis domain={[0, 100]} width={26} tickCount={6} />
           <Bar
             dataKey="value"
             fill={percentageToColor((score / goalScore) * 100)}

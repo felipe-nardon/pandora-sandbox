@@ -45,7 +45,11 @@ export default function App() {
         <Toolbar />
         <MenuItem onClick={showContent(<Home />)}>Home</MenuItem>
         <MenuItem onClick={showContent(<Squad />)}>Squad</MenuItem>
-        <MenuItem onClick={showContent(<ExecutiveScore />)}>Scores</MenuItem>
+        <MenuItem
+          onClick={showContent(<ExecutiveScore changeMenu={showContent} />)}
+        >
+          Scores
+        </MenuItem>
       </Drawer>
       {content}
     </Box>

@@ -42,12 +42,18 @@ export interface CustomTreeProps {
   data: ExecutiveData[];
   expanded: string[];
   handleChange: Function;
+  changeMenu: Function;
 }
 
 export interface MaturityScoreProps {
   data: Data[];
   score: number;
   goalScore: number;
+  changeMenu: Function;
+}
+
+export interface ExecutiveScoreProps {
+  changeMenu: Function;
 }
 
 export interface ExecutiveData {
