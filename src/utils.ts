@@ -6,9 +6,12 @@ export function scoreGenerator() {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-export function goalScoreGenerator() {
-  const min = 50;
-  const max = 95;
+export interface goalScoreGeneratorProps {
+  min: number;
+  max: number;
+}
+
+export function goalScoreGenerator({ min = 50, max = 95 }) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 

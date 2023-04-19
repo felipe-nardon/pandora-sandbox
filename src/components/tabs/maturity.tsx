@@ -156,7 +156,9 @@ function Category(props: CategoryProps) {
 
 function SquadAccordion(props: SquadAccordionProps) {
   const [score] = React.useState<number>(scoreGenerator());
-  const [goalScore] = React.useState<number>(goalScoreGenerator());
+  const [goalScore] = React.useState<number>(
+    goalScoreGenerator({ min: score })
+  );
 
   const { name, expanded, handleChange } = props;
 
