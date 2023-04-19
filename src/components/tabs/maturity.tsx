@@ -11,6 +11,7 @@ import {
   Box,
   Stack,
   Divider,
+  Paper,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
@@ -158,11 +159,15 @@ function SquadAccordion(props: SquadAccordionProps) {
   const [goalScore] = React.useState<number>(goalScoreGenerator());
 
   const { name, expanded, handleChange } = props;
+
+  const disable = ['Pink', 'Gold'].includes(name);
   return (
     <Accordion
       expanded={expanded === name}
       onChange={handleChange(name)}
       TransitionProps={{ unmountOnExit: true }}
+      sx={{ backgroundColor: '#f9f9f9' }}
+      disabled={disable}
     >
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography align="left" sx={{ width: '50%' }}>
@@ -170,7 +175,7 @@ function SquadAccordion(props: SquadAccordionProps) {
         </Typography>
         <Typography align="right" sx={{ width: '50%' }}>
           <Stack
-            display="flex"
+            display={disable ? 'none' : 'flex'}
             justifyContent="right"
             direction="row"
             divider={<Divider orientation="vertical" flexItem />}
@@ -196,6 +201,8 @@ function SquadAccordion(props: SquadAccordionProps) {
 
 export default function Maturity(props: MaturityProps) {
   const { value, index } = props;
+  const [score] = React.useState<number>(scoreGenerator());
+  const [goalScore] = React.useState<number>(goalScoreGenerator());
   const [expanded, setExpanded] = React.useState<string | false>('Bronze');
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -206,6 +213,28 @@ export default function Maturity(props: MaturityProps) {
     <Box>
       {value === index && (
         <Box>
+          <Paper elevation={1} sx={{ padding: 3, backgroundColor: '#f9f9f9' }}>
+            <Typography variant="h5" display="flex" justifyContent="center">
+              Score total
+            </Typography>
+            <Stack
+              display="flex"
+              justifyContent="center"
+              direction="row"
+              divider={<Divider orientation="vertical" flexItem />}
+              spacing={2}
+            >
+              <Chip
+                label={`Score ${score}`}
+                sx={{ backgroundColor: percentageToColor(score) }}
+              />
+              <Chip
+                label={`Goal ${goalScore}`}
+                sx={{ backgroundColor: '#e50091', color: 'white' }}
+              />
+            </Stack>
+          </Paper>
+          <Divider sx={{ padding: 1 }} />
           <SquadAccordion
             name="Pink"
             expanded={expanded}
