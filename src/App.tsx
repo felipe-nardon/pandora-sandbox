@@ -13,6 +13,10 @@ import ExecutiveScore from './components/executiveScore';
 import Home from './components/home';
 import MenuIcon from '@mui/icons-material/Menu';
 
+function test() {
+  console.log(111);
+}
+
 export default function App() {
   const [content, setContent] = React.useState(<ExecutiveScore />);
   const [menu, setMenu] = React.useState(false);
@@ -45,11 +49,7 @@ export default function App() {
         <Toolbar />
         <MenuItem onClick={showContent(<Home />)}>Home</MenuItem>
         <MenuItem onClick={showContent(<Squad />)}>Squad</MenuItem>
-        <MenuItem
-          onClick={showContent(<ExecutiveScore changeMenu={showContent} />)}
-        >
-          Scores
-        </MenuItem>
+        <MenuItem onClick={showContent(<ExecutiveScore />)}>Scores</MenuItem>
       </Drawer>
       {content}
     </Box>

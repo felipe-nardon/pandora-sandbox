@@ -14,6 +14,7 @@ import {
   Divider,
   Paper,
   Grid,
+  Button,
 } from '@mui/material';
 import {
   Bar,
@@ -37,7 +38,6 @@ import {
   MaturityScoreProps,
   CustomTreeProps,
   Data,
-  ExecutiveScoreProps,
 } from '../interfaces';
 import { faker } from '@faker-js/faker';
 import Squad from './squad';
@@ -97,12 +97,12 @@ function walkTree(node: {
 }
 
 function MaturityScore(props: MaturityScoreProps) {
-  const { data, score, goalScore, changeMenu } = props;
+  const { data, score, goalScore } = props;
 
   return (
     <Paper elevation={0} sx={{ p: 1, width: 350, height: 250 }}>
       <ResponsiveContainer height="100%">
-        <BarChart data={data} onClick={changeMenu(<Squad />)}>
+        <BarChart data={data}>
           <CartesianGrid strokeDasharray="3" />
           <XAxis dataKey="name" interval="preserveStartEnd" />
           <YAxis domain={[0, 100]} width={26} tickCount={6} />
@@ -146,8 +146,12 @@ function chartDataGenerator(executiveData: ExecutiveData): Data[] {
   }
 }
 
+function loadSquadContent() {
+  console.log(111);
+}
+
 function CustomTree(props: CustomTreeProps) {
-  const { data, expanded, handleChange, changeMenu } = props;
+  const { data, expanded, handleChange } = props;
   const content: any[] = [];
 
   data?.map((item: ExecutiveData) => {
@@ -173,6 +177,16 @@ function CustomTree(props: CustomTreeProps) {
           </Typography>
         </CardActions>
       );
+    } else {
+      cardActions = (
+        <CardActions sx={{ pt: 0 }}>
+          <Typography align="center" sx={{ width: '100%' }}>
+            <Button variant="outlined" onClick={loadSquadContent}>
+              Go to Squad
+            </Button>
+          </Typography>
+        </CardActions>
+      );
     }
     if (expanded.includes(name)) {
       nextChildren = (
@@ -181,7 +195,6 @@ function CustomTree(props: CustomTreeProps) {
             data={children}
             expanded={expanded}
             handleChange={handleChange}
-            changeMenu={changeMenu}
           />
         </Collapse>
       );
@@ -226,7 +239,6 @@ function CustomTree(props: CustomTreeProps) {
                   data={chartData}
                   score={score || 0}
                   goalScore={goalScore}
-                  changeMenu={changeMenu}
                 />
               </Box>
             </CardContent>
@@ -240,8 +252,7 @@ function CustomTree(props: CustomTreeProps) {
   return <Box display="flex">{content}</Box>;
 }
 
-export default function ExecutiveScore(props: ExecutiveScoreProps) {
-  const { changeMenu } = props;
+export default function ExecutiveScore() {
   const [expanded, setExpanded] = React.useState<string[]>([]);
   const handleChange = (id: string) => () => {
     if (expanded.includes(id)) {
@@ -267,7 +278,6 @@ export default function ExecutiveScore(props: ExecutiveScoreProps) {
               data={data}
               expanded={expanded}
               handleChange={handleChange}
-              changeMenu={changeMenu}
             />
           }
         >
