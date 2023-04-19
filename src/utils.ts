@@ -16,14 +16,14 @@ export function scoreVariation(score: number) {
   const min = score * 0.7;
   let max = score * 1.3;
   if (max > 100.0) max = 100;
-  const [variation, setVariation] = React.useState(
+  const [variation] = React.useState(
     Math.floor(Math.random() * (max - min) + min)
   );
   return variation;
 }
 
 export function dataGenerator(score: number) {
-  const [max, setMax] = React.useState(Math.floor(Math.random() * (4 - 1)) + 1);
+  const [max] = React.useState(Math.floor(Math.random() * (4 - 1)) + 1);
   const data = [];
   for (let i = 0; i < max; i++) {
     data.push({ name: `Item ${i + 1}`, value: scoreVariation(score) });

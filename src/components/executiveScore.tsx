@@ -32,7 +32,7 @@ import {
 } from '../utils';
 import {
   ExecutiveData,
-  ScoreKPIProps,
+  MaturityScoreProps,
   CustomTreeProps,
   Data,
 } from '../interfaces';
@@ -95,7 +95,7 @@ function dataGenerator(): ExecutiveData[] {
   return data;
 }
 
-function ScoreKPI(props: ScoreKPIProps) {
+function MaturityScore(props: MaturityScoreProps) {
   const { data, score, goalScore } = props;
 
   return (
@@ -216,7 +216,7 @@ function CustomTree(props: CustomTreeProps) {
                 </Paper>
               </Box>
               <Box display="flex" justifyContent="center">
-                <ScoreKPI
+                <MaturityScore
                   data={chartData}
                   score={score || 0}
                   goalScore={goalScore}

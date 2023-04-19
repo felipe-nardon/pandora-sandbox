@@ -14,7 +14,7 @@ import Home from './components/home';
 import MenuIcon from '@mui/icons-material/Menu';
 
 export default function App() {
-  const [content, setContent] = React.useState(<ExecutiveScore />);
+  const [content, setContent] = React.useState(<Squad />);
   const [menu, setMenu] = React.useState(false);
 
   const showContent = (content: JSX.Element) => () => {

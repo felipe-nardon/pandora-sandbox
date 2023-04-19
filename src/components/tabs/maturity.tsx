@@ -9,6 +9,8 @@ import {
   Typography,
   Grid,
   Box,
+  Stack,
+  Divider,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
@@ -34,12 +36,12 @@ import {
   AreaProps,
   CategoryProps,
   SquadAccordionProps,
-  KPIsProps,
+  MaturityProps,
 } from '../../interfaces';
 
 function KPI(props: KPIProps) {
   const { title, score, goalScore } = props;
-  const [data, setData] = React.useState<Data[]>(dataGenerator(score));
+  const [data] = React.useState<Data[]>(dataGenerator(score));
   return (
     <Box sx={{ width: 300, height: 300 }}>
       <Typography variant="h5" align="center">
@@ -70,16 +72,12 @@ function KPI(props: KPIProps) {
 }
 
 function Area(props: AreaProps) {
-  const [max, setMax] = React.useState(
-    Math.floor(Math.random() * (4 - 1 + 1)) + 1
-  );
+  const [max] = React.useState(Math.floor(Math.random() * (4 - 1 + 1)) + 1);
   const grids = [];
   const { value, index, score } = props;
 
   for (let i = 0; i < max; i++) {
-    const [goalScore, setGoalScore] = React.useState<number>(
-      goalScoreGenerator()
-    );
+    const [goalScore] = React.useState<number>(goalScoreGenerator());
     grids.push(
       <Grid item>
         <KPI title={`KPI ${i + 1}`} score={score} goalScore={goalScore} />
@@ -156,7 +154,8 @@ function Category(props: CategoryProps) {
 }
 
 function SquadAccordion(props: SquadAccordionProps) {
-  const [score, setScore] = React.useState<number>(scoreGenerator());
+  const [score] = React.useState<number>(scoreGenerator());
+  const [goalScore] = React.useState<number>(goalScoreGenerator());
 
   const { name, expanded, handleChange } = props;
   return (
@@ -170,10 +169,22 @@ function SquadAccordion(props: SquadAccordionProps) {
           {name}
         </Typography>
         <Typography align="right" sx={{ width: '50%' }}>
-          <Chip
-            label={`Score ${score}`}
-            sx={{ backgroundColor: percentageToColor(score) }}
-          />
+          <Stack
+            display="flex"
+            justifyContent="right"
+            direction="row"
+            divider={<Divider orientation="vertical" flexItem />}
+            spacing={2}
+          >
+            <Chip
+              label={`Score ${score}`}
+              sx={{ backgroundColor: percentageToColor(score) }}
+            />
+            <Chip
+              label={`Goal ${goalScore}`}
+              sx={{ backgroundColor: '#e50091', color: 'white' }}
+            />
+          </Stack>
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
@@ -183,9 +194,9 @@ function SquadAccordion(props: SquadAccordionProps) {
   );
 }
 
-export default function KPIs(props: KPIsProps) {
+export default function Maturity(props: MaturityProps) {
   const { value, index } = props;
-  const [expanded, setExpanded] = React.useState<string | false>('N1');
+  const [expanded, setExpanded] = React.useState<string | false>('Bronze');
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
@@ -196,27 +207,22 @@ export default function KPIs(props: KPIsProps) {
       {value === index && (
         <Box>
           <SquadAccordion
-            name="N5"
+            name="Pink"
             expanded={expanded}
             handleChange={handleChange}
           />
           <SquadAccordion
-            name="N4"
+            name="Gold"
             expanded={expanded}
             handleChange={handleChange}
           />
           <SquadAccordion
-            name="N3"
+            name="Silver"
             expanded={expanded}
             handleChange={handleChange}
           />
           <SquadAccordion
-            name="N2"
-            expanded={expanded}
-            handleChange={handleChange}
-          />
-          <SquadAccordion
-            name="N1"
+            name="Bronze"
             expanded={expanded}
             handleChange={handleChange}
           />

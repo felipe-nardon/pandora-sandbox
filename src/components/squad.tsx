@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Tabs, Tab, Typography, Box } from '@mui/material';
-import KPIs from './tabs/kpis';
-import Test from './tabs/test';
+import Maturity from './tabs/maturity';
 import Overview from './tabs/overview';
 import Docs from './tabs/docs';
 
@@ -20,14 +19,12 @@ export default function Squad() {
         <Tabs value={value} onChange={handleChange}>
           <Tab label="Overview" />
           <Tab label="Docs" />
-          <Tab label="KPIs" />
-          <Tab label="Test" />
+          <Tab label="Maturity" />
         </Tabs>
       </Box>
       <Overview value={value} index={0} />
       <Docs value={value} index={1} />
-      <KPIs value={value} index={2} />
-      <Test value={value} index={3} />
+      <Maturity value={value} index={2} />
     </Box>
   );
 }

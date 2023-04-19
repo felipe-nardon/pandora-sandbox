@@ -13,9 +13,7 @@ export interface OverviewProps extends CommonsProps {}
 
 export interface DocsProps extends CommonsProps {}
 
-export interface TestProps extends CommonsProps {}
-
-export interface KPIsProps extends CommonsProps {}
+export interface MaturityProps extends CommonsProps {}
 
 // Squad interfaces
 export interface SquadAccordionProps {
@@ -46,7 +44,7 @@ export interface CustomTreeProps {
   handleChange: Function;
 }
 
-export interface ScoreKPIProps {
+export interface MaturityScoreProps {
   data: Data[];
   score: number;
   goalScore: number;
