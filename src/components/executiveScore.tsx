@@ -38,6 +38,7 @@ import {
   MaturityScoreProps,
   CustomTreeProps,
   Data,
+  ExecutiveScoreProps,
 } from '../interfaces';
 import { faker } from '@faker-js/faker';
 import Squad from './squad';
@@ -47,7 +48,7 @@ faker.locale = 'pt_BR';
 function dataGenerator(): ExecutiveData[] {
   const tree = {
     role: 'Diretor',
-    childrenCount: 6,
+    childrenCount: 2,
     childrenProps: {
       role: 'Superintendente / Gerente Executivo / Gererente',
       childrenCount: 2,
@@ -151,7 +152,7 @@ function loadSquadContent() {
 }
 
 function CustomTree(props: CustomTreeProps) {
-  const { data, expanded, handleChange } = props;
+  const { data, expanded, handleChange, loadSquadMenu } = props;
   const content: any[] = [];
 
   data?.map((item: ExecutiveData) => {
@@ -181,7 +182,12 @@ function CustomTree(props: CustomTreeProps) {
       cardActions = (
         <CardActions sx={{ pt: 0 }}>
           <Typography align="center" sx={{ width: '100%' }}>
-            <Button variant="outlined" onClick={loadSquadContent}>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                loadSquadMenu();
+              }}
+            >
               Go to Squad
             </Button>
           </Typography>
@@ -195,6 +201,7 @@ function CustomTree(props: CustomTreeProps) {
             data={children}
             expanded={expanded}
             handleChange={handleChange}
+            loadSquadMenu={loadSquadMenu}
           />
         </Collapse>
       );
@@ -252,7 +259,8 @@ function CustomTree(props: CustomTreeProps) {
   return <Box display="flex">{content}</Box>;
 }
 
-export default function ExecutiveScore() {
+export default function ExecutiveScore(props: ExecutiveScoreProps) {
+  const { loadSquadMenu } = props;
   const [expanded, setExpanded] = React.useState<string[]>([]);
   const handleChange = (id: string) => () => {
     if (expanded.includes(id)) {
@@ -278,6 +286,7 @@ export default function ExecutiveScore() {
               data={data}
               expanded={expanded}
               handleChange={handleChange}
+              loadSquadMenu={loadSquadMenu}
             />
           }
         >

@@ -220,9 +220,9 @@ export default function Maturity(props: MaturityProps) {
     <Box>
       {value === index && (
         <Box>
-          <Paper elevation={1} sx={{ padding: 3, backgroundColor: '#f9f9f9' }}>
+          <Paper elevation={1} sx={{ padding: 2, backgroundColor: '#f9f9f9' }}>
             <Typography variant="h5" display="flex" justifyContent="center">
-              Score total
+              Total
             </Typography>
             <Stack
               display="flex"

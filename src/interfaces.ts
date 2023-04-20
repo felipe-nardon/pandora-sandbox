@@ -42,12 +42,17 @@ export interface CustomTreeProps {
   data: ExecutiveData[];
   expanded: string[];
   handleChange: Function;
+  loadSquadMenu: Function;
 }
 
 export interface MaturityScoreProps {
   data: Data[];
   score: number;
   goalScore: number;
+}
+
+export interface ExecutiveScoreProps {
+  loadSquadMenu: Function;
 }
 
 export interface ExecutiveData {
