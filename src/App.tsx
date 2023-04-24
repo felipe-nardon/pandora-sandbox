@@ -15,7 +15,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 export default function App() {
   const loadSquadMenu = () => {
-    setContent(<Squad />);
+    setContent(<Home />);
   };
   const [content, setContent] = React.useState(
     <ExecutiveScore loadSquadMenu={loadSquadMenu} />
