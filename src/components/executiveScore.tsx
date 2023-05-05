@@ -50,7 +50,7 @@ function dataGenerator(): ExecutiveData[] {
     role: 'Diretor',
     childrenCount: 2,
     childrenProps: {
-      role: 'Superintendente / Gerente Executivo / Gererente',
+      role: 'Superintendente / Gerente Executivo / Gerente',
       childrenCount: 2,
       childrenProps: {
         role: 'Coordenador / Spec II',
